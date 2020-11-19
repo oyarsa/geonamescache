@@ -71,11 +71,18 @@ class GeonamesCacheTestSuite(unittest.TestCase):
             self.assertEqual(name, cities[gid]['name'])
             self.assertEqual(us_state, cities[gid]['admin1code'])
 
-    def test_search_cities(self):
+    def test_search_cities_case_insensitive(self):
         city_names = ['Kiev', 'kiev']
         for name in city_names:
-            cities = self.geonamescache.search_cities(name)
+            cities = self.geonamescache.search_cities(name, case=False)
             self.assertGreaterEqual(len(cities), 1)
+
+    def test_search_cities_case_default(self):
+        city_names = ['Kiev', 'kiev']
+        expected = [1, 0]
+        for name, value in zip(city_names, expected):
+            cities = self.geonamescache.search_cities(name)
+            self.assertGreaterEqual(len(cities), value)
 
     def test_us_counties_len(self):
         # Make sure there are 3235 counties, which includes Puerto Rico etc.
