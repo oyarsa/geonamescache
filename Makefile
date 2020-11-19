@@ -69,8 +69,12 @@ docs-release: docs
 	python setup.py upload_docs
 
 install: clean
-	pip install -r requirements.txt --use-mirrors
-	python setup.py install
+	pip install -r requirements.txt 
+	pip install .
+
+develop: clean
+	pip install -r requirements.txt 
+	pip install -e .
 
 # Call example: make release version=1.2.0
 release: clean dist
