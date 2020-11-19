@@ -72,8 +72,10 @@ class GeonamesCacheTestSuite(unittest.TestCase):
             self.assertEqual(us_state, cities[gid]['admin1code'])
 
     def test_search_cities(self):
-        cities = self.geonamescache.search_cities('Kiev')
-        self.assertGreaterEqual(len(cities), 1)
+        city_names = ['Kiev', 'kiev']
+        for name in city_names:
+            cities = self.geonamescache.search_cities(name)
+            self.assertGreaterEqual(len(cities), 1)
 
     def test_us_counties_len(self):
         # Make sure there are 3235 counties, which includes Puerto Rico etc.
